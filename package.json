@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  },
+  "dependencies": {
+    "@jitsi/react-sdk": "^1.4.4",
+    "jwt-decode": "^4.0.0",
+    "socket.io-client": "^4.8.1"
+  }
+}
