@@ -40,7 +40,7 @@ const updateSuggestedRoomsForAll = (io) => {
 export const initSocket = async (server) => {
     const io = new Server(server, {
         cors: {
-            origin: "*",
+            origin:  ["http://localhost:5173", "https://studymatch29.netlify.app/"],
             methods: ["GET", "POST", "PUT", "PATCH", "DELETE"]
         }
     });
