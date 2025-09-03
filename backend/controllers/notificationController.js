@@ -133,7 +133,7 @@ const rejectJoinRequest = async (req, res) => {
     if (notification.status !== 'pending')
       return res.status(400).json({ msg: 'Request already handled' });
 
-    if (notification.receiver !== req.user._id)
+    if (notification.receiver.toString() !== req.user._id.toString())
       return res.status(403).json({ msg: 'Not authorized' });
 
     notification.status = 'rejected';

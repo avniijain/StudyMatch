@@ -19,6 +19,8 @@ export default function App() {
 
   useEffect(() => {
     socket.on("notification:update", (data) => {
+      const currentUserId = localStorage.getItem("userId");
+      if (data.receiver !== currentUserId) return;
       if (data.status === "accepted") {
         alert("Your request was accepted! You can now join the call through room page.");
       } else if (data.status === "rejected") {

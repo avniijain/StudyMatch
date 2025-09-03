@@ -7,7 +7,6 @@ import Room from "./pages/Room";
 import Todo from "./pages/Todo";
 import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Meetpage from "./pages/Meetpage";
 
 export default function AppRouter() {
   return (
@@ -19,7 +18,6 @@ export default function AppRouter() {
       <Route path="/room" element={<ProtectedRoute><Room /></ProtectedRoute>} />
       <Route path="/todo" element={<ProtectedRoute><Todo /></ProtectedRoute>} />
       <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-      <Route path="/room/:id" element={<ProtectedRoute><Meetpage /></ProtectedRoute>} />
     </Routes>
   );
 }

@@ -1,19 +1,15 @@
 import User from '../models/User.js';
 import Room from '../models/Room.js';
-import crypto from 'crypto';
 import { activeRooms, updateSuggestedRoomsForAll } from '../socket.js';
 
 const createRoom = async (req, res) => {
-    const { type, subject, roomName } = req.body;
+    const { type, subject, roomName, meetLink } = req.body;
 
     try {
-        const uniqueId = crypto.randomBytes(6).toString('hex');
-        const jitsiLink = `https://meet.jit.si/studymatch-${uniqueId}`;
-
         const room = await Room.create({
             host: req.user._id,
             participants: [req.user._id],
-            type: type, subject, roomName, meetLink:jitsiLink
+            type: type, subject, roomName, meetLink
         });
 
         activeRooms.set(room._id, {

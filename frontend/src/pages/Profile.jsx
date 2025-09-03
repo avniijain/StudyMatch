@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom';
 
 export default function Profile() {
-  const { user, token, logout, updateUser} = useAuth();
+  const { user, token, logout, updateUser } = useAuth();
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [profileData, setProfileData] = useState(null);
@@ -12,16 +12,16 @@ export default function Profile() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(!token){
+    if (!token) {
       navigate('/login');
       return;
     }
-    const fetchUser = async()=>{
-      try{
+    const fetchUser = async () => {
+      try {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/me`, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        
+
         if (!res.ok) {
           console.error(`HTTP Error: ${res.status} ${res.statusText}`);
           if (res.status === 401) {
@@ -51,7 +51,7 @@ export default function Profile() {
         if (err.message.includes('JSON')) {
           alert.error('Server error: Please check if the API is running correctly');
         }
-      } finally{
+      } finally {
         setLoading(false);
       }
     };
@@ -77,7 +77,7 @@ export default function Profile() {
           ? editData.goals.split(",").map(g => g.trim()).filter(Boolean)
           : editData.goals,
       };
-      
+
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/profile`, {
         method: "PUT",
         headers: {
@@ -127,7 +127,7 @@ export default function Profile() {
   };
 
   // Show loading spinner while data is being fetched
-  if(loading || !profileData){
+  if (loading || !profileData) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-8 px-4 flex items-center justify-center">
         <div className="text-center">
@@ -144,7 +144,7 @@ export default function Profile() {
         {/* Header */}
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-8">
           <div className="bg-[#477572] px-8 py-12 text-white">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
               <div className="flex items-center space-x-6">
                 <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
                   <User size={48} className="text-white" />

@@ -6,35 +6,36 @@ let activeUsers = new Map();
 let activeRooms = new Map();
 
 const updateSuggestedRoomsForAll = (io) => {
-        io.sockets.sockets.forEach((s) => {
-            if (s.user?.id) {
-                const userId = s.user.id;
+    io.sockets.sockets.forEach((s) => {
+        if (s.user?.id) {
+            const userId = s.user.id;
 
-                // Convert activeRooms Map to an array
-                const allRooms = Array.from(activeRooms.entries()).map(([roomId, room]) => ({
-                    roomId,
-                    ...room
-                }));
+            // Convert activeRooms Map to an array
+            const allRooms = Array.from(activeRooms.entries()).map(([roomId, room]) => ({
+                roomId,
+                ...room
+            }));
 
-                // Filter rooms based on subjects & exclude ones the user is host or participant in
-                const suggestedRooms = allRooms.filter((room) => {
-                    const subjectMatch = room.subjects?.some((subj) =>
-                        (s.user.subjects || []).some(userSubj =>
-                            userSubj?.toLowerCase() === subj?.toLowerCase()
-                        )
-                    );
+            // Filter rooms based on subjects & exclude ones the user is host or participant in
+            const suggestedRooms = allRooms.filter((room) => {
+                const subjectMatch = room.subjects?.some((subj) =>
+                    (s.user.subjects || []).some(userSubj =>
+                        userSubj?.toLowerCase() === subj?.toLowerCase()
+                    )
+                );
 
-                    const isHost = room.host?.toString() === userId.toString();
-                    const isParticipant = room.participants?.some((p) => p.toString() === userId.toString());
+                const isHost = room.host?.toString() === userId.toString();
+                const isParticipant = room.participants?.some((p) => p.toString() === userId.toString());
 
-                    return subjectMatch && !isHost && !isParticipant;
-                });
+                return subjectMatch && !isHost && !isParticipant;
+            });
 
-                // Emit only to this socket
-                io.to(s.id).emit('match_list_update', suggestedRooms);
-            }
-        });
-    };
+            // Emit only to this socket
+            io.to(s.id).emit('match_list_update', suggestedRooms);
+        }
+    });
+};
+
 
 export const initSocket = async (server) => {
     const io = new Server(server, {
@@ -92,6 +93,7 @@ export const initSocket = async (server) => {
             socket.join(roomId);
             io.emit('room_list_update', Array.from(activeRooms.values()));
             updateSuggestedRoomsForAll(io);
+            console.log(activeRooms);
         });
 
         // When user leaves a room
@@ -104,6 +106,7 @@ export const initSocket = async (server) => {
             }
 
             updateSuggestedRoomsForAll(io);
+            console.log(activeRooms);
         });
 
         socket.on('room_deleted', ({ roomId }) => {
@@ -123,9 +126,10 @@ export const initSocket = async (server) => {
             io.to(senderId.toString()).emit('notification:read', { notificationId });
         });
 
+
     });
 
     return io;
 }
 
-export {activeRooms, updateSuggestedRoomsForAll};
+export { activeRooms, updateSuggestedRoomsForAll };
