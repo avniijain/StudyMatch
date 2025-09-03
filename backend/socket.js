@@ -40,7 +40,7 @@ const updateSuggestedRoomsForAll = (io) => {
 export const initSocket = async (server) => {
     const io = new Server(server, {
         cors: {
-            origin:  NETLIFY_URL,
+            origin:  process.env.NETLIFY_URL,
             methods: ["GET", "POST", "PUT", "PATCH", "DELETE"]
         }
     });
