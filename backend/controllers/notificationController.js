@@ -76,7 +76,12 @@ const sendJoinRequest = async (req, res) => {
       message: `${req.user.name} requested to join your room`
     });
 
-    req.io.to(room.host._id.toString()).emit('notification:new', notification);
+    const populatedNotification = await Notification.findById(notification._id)
+      .populate('sender', 'name')       
+      .populate('room', 'roomName');   
+
+    // Emit the populated object
+    req.io.to(room.host._id.toString()).emit('notification:new', populatedNotification);
 
     res.status(201).json(notification);
   } catch (err) {

@@ -27,7 +27,7 @@ export default function NotificationBell() {
     // 🔹 Listen for new notifications
     socket.on("notification:new", (notification) => {
       setNotifications((prev) => [notification, ...prev]);
-      alert(`${notification.sender.name} sent you a request to join your room "${notification.room.name}"`);
+      alert(`${notification.sender.name} sent you a request to join your room "${notification.room.roomName}"`);
     });
 
     return () => socket.off("notification:new");
