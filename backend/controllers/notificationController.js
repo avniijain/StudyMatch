@@ -118,7 +118,8 @@ const acceptJoinRequest = async (req, res) => {
     // Emit update to sender
     req.io.to(notification.sender.toString()).emit('notification:update', {
       id: notification._id,
-      status: 'accepted'
+      status: 'accepted',
+      receiver: notification.sender.toString()
     });
 
     res.status(200).json({ msg: 'Request accepted', room });
@@ -146,7 +147,8 @@ const rejectJoinRequest = async (req, res) => {
 
     req.io.to(notification.sender.toString()).emit('notification:update', {
       id: notification._id,
-      status: 'rejected'
+      status: 'rejected',
+      receiver: notification.sender.toString()
     });
 
     res.status(200).json({ msg: 'Request rejected' });
