@@ -2,7 +2,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 // fetch all tasks
 export const getTodos = async (token) => {
-  const res = await fetch(`${API_URL}/display`, {
+  const res = await fetch(`${API_URL}/api/todo/display`, {
     headers: { Authorization: `Bearer ${token}` },
   });
   return res.json();
@@ -10,7 +10,7 @@ export const getTodos = async (token) => {
 
 // add task
 export const addTodo = async (todo, token) => {
-  const res = await fetch(`${API_URL}/add`, {
+  const res = await fetch(`${API_URL}/api/todo/add`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -23,7 +23,7 @@ export const addTodo = async (todo, token) => {
 
 // update task
 export const updateTodo = async (id, todo, token) => {
-  const res = await fetch(`${API_URL}/update/${id}`, {
+  const res = await fetch(`${API_URL}/api/todo/update/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export const updateTodo = async (id, todo, token) => {
 
 // delete task
 export const deleteTodo = async (id, token) => {
-  await fetch(`${API_URL}/delete/${id}`, {
+  await fetch(`${API_URL}/api/todo/delete/${id}`, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -48,7 +48,7 @@ export const toggleTodo = async (id, token) => {
     throw new Error("No token provided. User must be logged in.");
   }
 
-  const res = await fetch(`${API_URL}/toggle/${id}`, {
+  const res = await fetch(`${API_URL}/api/todo/toggle/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
