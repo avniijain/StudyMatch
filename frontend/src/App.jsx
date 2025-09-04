@@ -29,7 +29,7 @@ export default function App() {
     });
 
     return () => socket.off("notification:update");
-  }, [navigate]);
+  }, []);
 
   const location = useLocation();
   // Paths where you DON'T want navbar/footer
