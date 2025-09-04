@@ -18,10 +18,8 @@ const updateSuggestedRoomsForAll = (io) => {
 
             // Filter rooms based on subjects & exclude ones the user is host or participant in
             const suggestedRooms = allRooms.filter((room) => {
-                const subjectMatch = room.subjects?.some((subj) =>
-                    (s.user.subjects || []).some(userSubj =>
-                        userSubj?.toLowerCase() === subj?.toLowerCase()
-                    )
+                const subjectMatch = s.user.subjects?.some((userSubj) =>
+                    userSubj.toLowerCase() === room.subject?.toLowerCase()
                 );
 
                 const isHost = room.host?.toString() === userId.toString();
