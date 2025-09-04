@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api", // change to your backend base URL
+  baseURL: import.meta.env.VITE_API_URL, // change to your backend base URL
 });
 
 export const setupInterceptors = (logout) => {

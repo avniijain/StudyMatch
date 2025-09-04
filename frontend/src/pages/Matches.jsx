@@ -11,8 +11,8 @@ const Matches = () => {
       try {
         const url =
           activeTab === "suggested"
-            ? "http://localhost:5000/api/room/suggested"
-            : "http://localhost:5000/api/room/active";
+            ? `${import.meta.env.VITE_API_URL}/api/room/suggested`
+            : `${import.meta.env.VITE_API_URL}/api/room/active`;
 
         const res = await fetch(url, {
           headers: { Authorization: `Bearer ${token}` },

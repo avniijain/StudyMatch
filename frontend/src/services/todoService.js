@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/api/todo";
+const API_URL = import.meta.env.VITE_API_URL;
 
 // fetch all tasks
 export const getTodos = async (token) => {
