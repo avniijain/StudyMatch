@@ -22,6 +22,6 @@
 **Backend**: Node.js, Express.js, JWT Auth  
 **Database**: MongoDB  
 **Real-time**: Socket.io  
-**Video chat**: Jitsi 
+**Video chat**: Google meet 
 
 ---
